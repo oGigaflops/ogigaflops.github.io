@@ -30,6 +30,7 @@
         };
         ndef.onreading = event => {
             document.getElementById("MSG").innerHTML = "NDEF message read.";
+            document.getElementById("SERIAL").innerHTML = ndef.serialNumber;
         };
         }).catch(error => {
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
