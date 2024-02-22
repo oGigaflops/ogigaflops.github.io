@@ -33,6 +33,7 @@
     }
 
     read().then(({ serialNumber }) => {
+        document.getElementById("MSG").innerHTML = serialNumber;
         console.log(serialNumber);
         alert(serialNumber);
     });
