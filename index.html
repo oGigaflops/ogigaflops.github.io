@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title></title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <h1 id="MSG">???</h1>
     <h2 id="SERIAL">###</h2>
@@ -25,15 +27,15 @@
     function read() {
         const ndef = new NDEFReader();
         ndef.scan().then(() => {
-        console.log("Scan started successfully.");
- 
-        ndef.onreadingerror = () => {
-            document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
-        };
-        ndef.onreading = event => {
-            document.getElementById("MSG").innerHTML = "NDEF message read.";
-            document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
-        };
+            console.log("Scan started successfully.");
+
+            ndef.onreadingerror = () => {
+                document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
+            };
+            ndef.onreading = event => {
+                document.getElementById("MSG").innerHTML = "NDEF message read.";
+                document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
+            };
 
         }).catch(error => {
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
