@@ -31,7 +31,7 @@
         };
         ndef.onreading = event => {
             document.getElementById("MSG").innerHTML = "NDEF message read.";
-            document.getElementById("SERIAL").innerHTML = JSON.stringify(event.serialNumber);
+            document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
         };
 
         }).catch(error => {
