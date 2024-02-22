@@ -22,22 +22,19 @@
     const ndef = new NDEFReader();
 
     function read() {
-        return new Promise((resolve, reject) => {
-            const ctlr = new AbortController();
-            ctlr.signal.onabort = reject;
-            ndef.addEventListener("reading", event => {
-                ctlr.abort();
-                resolve(event);
-            }, { once: true });
-            ndef.scan({ signal: ctlr.signal }).catch(err => reject(err));
+        const ndef = new NDEFReader();
+        ndef.scan().then(() => {
+        console.log("Scan started successfully.");
+        ndef.onreadingerror = () => {
+            document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
+        };
+        ndef.onreading = event => {
+            document.getElementById("MSG").innerHTML = "NDEF message read.";
+        };
+        }).catch(error => {
+            document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
         });
-    }
-
-    read().then(({ serialNumber }) => {
-        document.getElementById("MSG").innerHTML = " Promise solved ";        
-        document.getElementById("SERIAL").innerHTML = serialNumber;
-        console.log(serialNumber);
-    });
+    };
 
 
 
