@@ -20,5 +20,6 @@
 button {
     width: 50vw;
     height: 6rem;
-    font-size: larger;
+    font-size: 6rem;
+    font-weight: 600;
 }
