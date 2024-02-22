@@ -25,13 +25,16 @@
         const ndef = new NDEFReader();
         ndef.scan().then(() => {
         console.log("Scan started successfully.");
+ 
         ndef.onreadingerror = () => {
             document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
         };
         ndef.onreading = event => {
             document.getElementById("MSG").innerHTML = "NDEF message read.";
-            document.getElementById("SERIAL").innerHTML = ndef.serialNumber;
         };
+        const onReading = ({message, serialNumber}) => {
+            document.getElementById("SERIAL").innerHTML = serialNumber;
+        }
         }).catch(error => {
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
         });
