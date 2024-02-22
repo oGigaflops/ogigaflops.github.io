@@ -19,24 +19,27 @@
         document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
 
-    const ndef = new NDEFReader();
+    Button.addEventListener("click", async () => {
+        log("User clicked scan button");
 
-    function read() {
+    try {
         const ndef = new NDEFReader();
-        ndef.scan().then(() => {
-        console.log("Scan started successfully.");
- 
-        ndef.onreadingerror = () => {
-            document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
-        };
-        ndef.onreading = event => {
-            document.getElementById("MSG").innerHTML = "NDEF message read.";
-            document.getElementById("SERIAL").innerHTML = JSON.stringify(event.serialNumber);
-        };
+        await ndef.scan();
+        document.getElementById("MSG").innerHTML = "> Scan started";
 
-        }).catch(error => {
-            document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
+        ndef.addEventListener("readingerror", () => {
+            document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag.";
         });
+
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            document.getElementById("SERIAL").innerHTML = `> Serial Number: ${serialNumber}`;
+            document.getElementById("MSG").innerHTML = `> Records: (${message.records.length})`;
+        });
+    } catch (error) {
+        log("Argh! " + error);
+    }
+});
+
     };
 
 
