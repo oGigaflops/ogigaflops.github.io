@@ -6,15 +6,16 @@
     <title></title>
 </head>
 <body>
+    <p id="MSG">???</p>
     <button onclick="read()">LER</button>
 </body>
 
 <script>
 
     if ("NDEFReader" in window) {
-        console.log("NDEFReader is supported");
+        document.getElementById("MSG").innerHTML = "NDEFReader is supported";
     } else {
-        console.log("NDEFReader is not supported");
+        document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
 
     const ndef = new NDEFReader();
