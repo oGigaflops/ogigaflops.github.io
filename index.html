@@ -31,10 +31,9 @@
         };
         ndef.onreading = event => {
             document.getElementById("MSG").innerHTML = "NDEF message read.";
+            document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
         };
-        const onReading = ({message, serialNumber}) => {
-            document.getElementById("SERIAL").innerHTML = serialNumber;
-        }
+
         }).catch(error => {
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
         });
