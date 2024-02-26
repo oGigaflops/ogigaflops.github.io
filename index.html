@@ -33,7 +33,7 @@ async function read() {
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        document.getElementById("MSG").innerHTML = `Serial Number: ${serialNumber}`;
+        document.getElementById("MSG").innerHTML = "Done.";
         document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
         document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
     });
