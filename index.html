@@ -24,9 +24,9 @@
 
 <body style="display: flex; flex-direction: column; align-items: center; justify-items: center; width: 100vw; margin:auto; font-size: 12px;">
     <div class="position-absolute top-50 start-50 translate-middle">
-        <h1 id="MSG" style="font-size: 2rem;">???</h1>
-        <h2 id="SERIAL" style="font-size: 1rem;">###</h2>
-        <h2 id="RECORDS" style="font-size: 1rem;">###</h2>
+        <h1 id="MSG" style="font-size: 3rem;">???</h1>
+        <h2 id="SERIAL" style="font-size: 2rem;">###</h2>
+        <h2 id="RECORDS" style="font-size: 2rem;">###</h2>
         <button id="scanButton" class="btn btn-primary">LER</button>
     </div>
 </body>
@@ -34,24 +34,23 @@
 <script>
 
 scanButton.addEventListener("click", async () => {
-    document.getElementById("MSG").innerHTML = "User clicked scan button";
 
   try {
     const ndef = new NDEFReader();
     await ndef.scan();
-    document.getElementById("MSG").innerHTML = "Scan started";
+    document.getElementById("MSG").innerHTML = "Rastreio iniciado";
 
     ndef.addEventListener("readingerror", () => {
-        document.getElementById("MSG").innerHTML = "Error reading tag";
+        document.getElementById("MSG").innerHTML = "Erro lendo tag";
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        document.getElementById("MSG").innerHTML = "Done.";
+        document.getElementById("MSG").innerHTML = "OK";
         document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
         document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
     });
   } catch (error) {
-    document.getElementById("MSG").innerHTML = "Argh! " + error;
+    document.getElementById("MSG").innerHTML = "Erro: " + error;
   }
 });
 
