@@ -22,8 +22,8 @@
         document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
 
-scanButton.addEventListener("click", async () => {
-  log("User clicked scan button");
+    scanButton.addEventListener("click", async () => {
+    log("User clicked scan button");
 
   try {
     const ndef = new NDEFReader();
