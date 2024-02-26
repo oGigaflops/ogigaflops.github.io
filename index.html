@@ -22,7 +22,27 @@
         document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
 
+async function read() {
+  try {
     const ndef = new NDEFReader();
+    await ndef.scan();
+    log("> Scan started");
+
+    ndef.addEventListener("readingerror", () => {
+      log("Cannot read data from the NFC tag");
+    });
+
+    ndef.addEventListener("reading", ({ message, serialNumber }) => {
+        document.getElementById("MSG").innerHTML = `Serial Number: ${serialNumber}`;
+        document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
+        document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
+    });
+  } catch (error) {
+    log("Argh! " + error);
+  }
+};
+
+/*    const ndef = new NDEFReader();
 
     function read() {
         const ndef = new NDEFReader();
@@ -47,6 +67,8 @@
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
         });
     };
+
+*/
 
 </script>
 
