@@ -22,29 +22,7 @@
         document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
 
-    scanButton.addEventListener("click", async () => {
-    log("User clicked scan button");
-
-  try {
     const ndef = new NDEFReader();
-    await ndef.scan();
-    log("> Scan started");
-
-    ndef.addEventListener("readingerror", () => {
-      log("Error");
-    });
-
-    ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        document.getElementById("MSG").innerHTML = `Serial Number: ${serialNumber}`;
-        document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
-        document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-    });
-  } catch (error) {
-    log("Argh! " + error);
-  }
-});
-
-/*    const ndef = new NDEFReader();
 
     function read() {
         const ndef = new NDEFReader();
@@ -59,12 +37,16 @@
                 document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
             };
 
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            document.getElementById("MSG").innerHTML = `Serial Number: ${serialNumber}`;
+            document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
+            document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
+        }
+
         }).catch(error => {
             document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
         });
     };
-
-*/
 
 </script>
 
