@@ -11,7 +11,7 @@
     <h1 id="MSG" style="font-size: 5rem;">???</h1>
     <h2 id="SERIAL" style="font-size: 3rem;">###</h2>
     <h2 id="RECORDS" style="font-size: 3rem;">###</h2>
-    <button id="scanButton" style="width: 50vw; height: 6rem;">LER</button>
+    <button onclick="read()" style="width: 50vw; height: 6rem;">LER</button>
 </body>
 
 <script>
@@ -21,9 +21,8 @@
     } else {
         document.getElementById("MSG").innerHTML = "NDEFReader is not supported";
     }
-scanButton.addEventListener("click", async () => {
-  log("User clicked scan button");
 
+async function scan() {
   try {
     const ndef = new NDEFReader();
     await ndef.scan();
@@ -41,7 +40,11 @@ scanButton.addEventListener("click", async () => {
   } catch (error) {
     log("Argh! " + error);
   }
-});
+};
+
+function read() {
+    scan().resolve("Done")
+}
 
 /*    const ndef = new NDEFReader();
 
