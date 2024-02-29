@@ -111,10 +111,11 @@ scanButton.addEventListener("click", async () => {
       ndef.addEventListener("readingerror", () => {
           document.getElementById("MSG").innerHTML = "Erro lendo tag";
       });
-    
+
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
-          if (message.records.length == 0 ||               // unformatted tag
-              message.records[0].recordType == "empty") {  // empty record
+        const textDecoder = new TextDecoder(record.encoding);
+
+          if (message.records.length == 0 || message.records[0].recordType == "empty") {
               document.getElementById("MSG").innerHTML = "Tag vazia";
               document.getElementById("SERIAL").innerHTML = " ";
               document.getElementById("RECORDS").innerHTML = " ";
@@ -123,7 +124,7 @@ scanButton.addEventListener("click", async () => {
           document.getElementById("MSG").innerHTML = "OK";
           document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
           document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
-          document.getElementById("CONTENT").innerHTML = `Conteúdo: ${message.records[0]}`;
+          document.getElementById("CONTENT").innerHTML = `Conteúdo: ${textDecoder.decode(record.data)} (${record.lang})`;
           });
       } catch (error) {
       document.getElementById("MSG").innerHTML = "Erro: " + error;
