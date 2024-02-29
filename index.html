@@ -45,42 +45,20 @@ scanButton.addEventListener("click", async () => {
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
+        if (message.records.length == 0 ||               // unformatted tag
+            message.records[0].recordType == "empty") {  // empty record
+            document.getElementById("MSG").innerHTML = "Tag vazia";
+            document.getElementById("SERIAL").innerHTML = "";
+            document.getElementById("RECORDS").innerHTML = "";    
+        } else
         document.getElementById("MSG").innerHTML = "OK";
         document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
         document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-    });
-  } catch (error) {
+        });
+    } catch (error) {
     document.getElementById("MSG").innerHTML = "Erro: " + error;
   }
 });
-
-/*    const ndef = new NDEFReader();
-
-    function read() {
-        const ndef = new NDEFReader();
-        ndef.scan().then(() => {
-            console.log("Scan started successfully.");
-
-            ndef.onreadingerror = () => {
-                document.getElementById("MSG").innerHTML = "Cannot read data from the NFC tag. Try another one?";
-            };
-            ndef.onreading = event => {
-                document.getElementById("MSG").innerHTML = "NDEF message read.";
-                document.getElementById("SERIAL").innerHTML = JSON.stringify(event);
-            };
-
-        ndef.addEventListener("reading", ({ message, serialNumber }) => {
-            document.getElementById("MSG").innerHTML = `Serial Number: ${serialNumber}`;
-            document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
-            document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-        }
-
-        }).catch(error => {
-            document.getElementById("MSG").innerHTML = `Error! Scan failed to start: ${error}.`;
-        });
-    };
-
-*/
 
 </script>
 
