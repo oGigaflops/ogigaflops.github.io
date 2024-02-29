@@ -114,7 +114,6 @@ scanButton.addEventListener("click", async () => {
       });
 
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        const textDecoder = new TextDecoder(record.encoding);
 
           if (message.records.length == 0 || message.records[0].recordType == "empty") {
               document.getElementById("MSG").innerHTML = "Tag vazia";
@@ -125,7 +124,7 @@ scanButton.addEventListener("click", async () => {
           document.getElementById("MSG").innerHTML = "OK";
           document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
           document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
-          document.getElementById("CONTENT").innerHTML = `Conteúdo: ${textDecoder.decode(record.data)} (${record.lang})`;
+          document.getElementById("CONTENT").innerHTML = `Conteúdo: ${record.data}`;
           });
       } catch (error) {
       document.getElementById("MSG").innerHTML = "Erro: " + error;
