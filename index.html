@@ -123,7 +123,7 @@ scanButton.addEventListener("click", async () => {
           document.getElementById("MSG").innerHTML = "OK";
           document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
           document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-          document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
+          document.getElementById("CONTENT").innerHTML = `Records: (${message.records.length})`;
           });
       } catch (error) {
       document.getElementById("MSG").innerHTML = "Erro: " + error;
