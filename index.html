@@ -92,37 +92,36 @@ scanButton.addEventListener("click", async () => {
   }
 });
 
-</script>
-
-
 
 /* scanButton.addEventListener("click", async () => {
 
-    try {
-      const ndef = new NDEFReader();
-      await ndef.scan();
-      document.getElementById("MSG").innerHTML = "Rastreio iniciado";
-  
-      ndef.addEventListener("readingerror", () => {
-          document.getElementById("MSG").innerHTML = "Erro lendo tag";
-      });
-  
-      ndef.addEventListener("reading", ({ message, serialNumber }) => {
-          if (message.records.length == 0 ||               // unformatted tag
-              message.records[0].recordType == "empty") {  // empty record
-              document.getElementById("MSG").innerHTML = "Tag vazia";
-              document.getElementById("SERIAL").innerHTML = " ";
-              document.getElementById("RECORDS").innerHTML = " ";
-              document.getElementById("CONTENT").innerHTML = " ";    
-          } else
-          document.getElementById("MSG").innerHTML = "OK";
-          document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
-          document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-          document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-          });
-      } catch (error) {
-      document.getElementById("MSG").innerHTML = "Erro: " + error;
-    }
-  }); */
+try {
+  const ndef = new NDEFReader();
+  await ndef.scan();
+  document.getElementById("MSG").innerHTML = "Rastreio iniciado";
 
-  </html>
+  ndef.addEventListener("readingerror", () => {
+      document.getElementById("MSG").innerHTML = "Erro lendo tag";
+  });
+
+  ndef.addEventListener("reading", ({ message, serialNumber }) => {
+      if (message.records.length == 0 ||               // unformatted tag
+          message.records[0].recordType == "empty") {  // empty record
+          document.getElementById("MSG").innerHTML = "Tag vazia";
+          document.getElementById("SERIAL").innerHTML = " ";
+          document.getElementById("RECORDS").innerHTML = " ";
+          document.getElementById("CONTENT").innerHTML = " ";    
+      } else
+      document.getElementById("MSG").innerHTML = "OK";
+      document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
+      document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
+      document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
+      });
+  } catch (error) {
+  document.getElementById("MSG").innerHTML = "Erro: " + error;
+}
+}); */
+</script>
+
+
+</html>
