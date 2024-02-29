@@ -121,9 +121,9 @@ scanButton.addEventListener("click", async () => {
               document.getElementById("CONTENT").innerHTML = " ";    
           } else
           document.getElementById("MSG").innerHTML = "OK";
-          document.getElementById("SERIAL").innerHTML = `Serial Number: ${serialNumber}`;
-          document.getElementById("RECORDS").innerHTML = `Records: (${message.records.length})`;
-          document.getElementById("CONTENT").innerHTML = `Records: (${message.records.length})`;
+          document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
+          document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
+          document.getElementById("CONTENT").innerHTML = `Conteúdo: ${textDecoder.decode(record.data)} (${record.lang})`;
           });
       } catch (error) {
       document.getElementById("MSG").innerHTML = "Erro: " + error;
