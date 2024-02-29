@@ -105,6 +105,7 @@ scanButton.addEventListener("click", async () => {
     
     try {
       const ndef = new NDEFReader();
+      const textDecoder = new TextDecoder(record.encoding);
       await ndef.scan();
       document.getElementById("MSG").innerHTML = "Rastreio iniciado";
     
