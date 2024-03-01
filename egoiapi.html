@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: purple;
+      color: white;
+    }
+  </style>
+  <title>E-goi API Demo</title>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Send Payload</h2>
+        <div class="form-group">
+          <label for="payload">Payload:</label>
+          <div id="container" class="form-control" style="min-height: 300px;">
+                <p id="payload">
+                {"mode":"add",
+                "compare_field":"<string>",
+                "contacts":[{"base":{"contact_id":"01",
+                                    "status":"active",
+                                    "first_name":"José",
+                                    "last_name":"Gomes",
+                                    "birth_date":"02/05/1975",
+                                    "language":"pt",
+                                    "email":"jose@email.pt",
+                                    "cellphone":"987654321",
+                                    "phone":"123456789"}},
+                            {"base":{"contact_id":"01",
+                                    "status":"active",
+                                    "first_name":"Maria",
+                                    "last_name":"Gomes",
+                                    "birth_date":"07/10/1978",
+                                    "language":"pt",
+                                    "email":"maria@email.pt",
+                                    "cellphone":"989898989",
+                                    "phone":"123321123"}}],
+                "force_empty":false,
+                "callback_url":"<string>"}
+                </p>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="sendPayload()">Send</button>
+        <button class="btn btn-primary" onclick="sms()">SMS</button>
+      </div>
+      <div class="col-md-6">
+        <h2>Response Log</h2>
+        <label for="response">Response:</label>
+        <div id="responseLog" class="form-control" style="min-height: 300px;">
+            <P id="log">
+
+            </P>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+
+    console.log(document.getElementById('payload').innerText);
+
+    function sendPayload() {
+
+        const payload = document.getElementById('payload').innerText;
+        const responseLog = document.getElementById('log');
+        var data = JSON.stringify(`${payload}`);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+            if(this.readyState === 4) {
+                console.log(this.responseText);
+                responseLog.innerText += `${this.responseText}\n`;
+            }
+        });
+
+        xhr.open("POST", "https://api.egoiapp.com/lists/21/contacts/actions/import-bulk");
+        xhr.timeout = 30;
+        xhr.addEventListener("ontimeout", function(e) {
+            console.log(e);
+            responseLog.innerText += `${e}\n`;
+        });
+        xhr.setRequestHeader("Apikey", "1c3debeeacd51a441fe873b4a7a847b45fde90da");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.send(data);
+
+    }
+
+    function sms() {
+        
+        const responseLog = document.getElementById('log');
+        var data = JSON.stringify({"list_id":"21","destination_field":"cellphone","segments":{"type":"1"}});
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+            if(this.readyState === 4) {
+                console.log(this.responseText);
+                responseLog.innerText += `${this.responseText}\n`;
+            }
+        });
+
+        xhr.open("POST", "https://api.egoiapp.com/campaigns/sms/21/actions/send");
+        xhr.timeout = 30;
+        xhr.addEventListener("ontimeout", function(e) {
+            console.log(e);
+        });
+        xhr.setRequestHeader("Apikey", "1c3debeeacd51a441fe873b4a7a847b45fde90da");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.send(data);
+        
+    };
+
+
+  </script>
+</body>
+
+</html>
