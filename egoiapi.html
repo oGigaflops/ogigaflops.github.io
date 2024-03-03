@@ -40,6 +40,12 @@
     }
 
     function createCampaign(idx) {
+      if (idx < 0) {
+        document.getElementById('msg').innerText = 'Selecione um item da lista';
+        document.getElementById('msg').style.visibility = 'visible';
+
+        return;
+      }
       var lista = document.getElementById('lista');
       var msg = lista.options[idx].text;
       console.log(msg);
@@ -136,9 +142,16 @@
 
         }).catch(function (error) {
           console.log(error);
+          document.getElementById('msg').innerText = 'Erro: ' + error;
           document.getElementById('msg').style.visibility = 'visible';
           document.getElementById('msg').style.backgroundColor = 'red';
-          document.getElementById('msg').innerText = 'Erro: ' + error;
+
+          setTimeout(() => {
+            document.getElementById('msg').style.visibility = 'hidden'; 
+            document.getElementById('msg').style.backgroundColor = 'forestgreen';
+            document.getElementById('msg').innerText = 'Mensagem enviada';
+
+          }, 3000);
         })
       });
 
