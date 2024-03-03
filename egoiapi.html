@@ -5,35 +5,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    body {
-      background-color: rgb(49, 49, 49);
-      color: rgb(32, 32, 32);
-    }
-  </style>
+
   <title>E-goi API Teste</title>
 </head>
 
-<body>
+<body class="d-flex justify-content-center flex-column bg-dark">
   <br>
-  <div id="container" class="container-md w-75 m-auto bg-light rounded d-flex justify-content-sm-center flex-column">
+  <div id="container" class="container-md w-75 m-auto bg-light rounded d-flex justify-content-center flex-column">
   
-    <select id="lista" class="form-control w-50 align-self-center mt-5" size="3">
-      <option>Item 1</option>
-      <option>Item 2</option>
-      <option>Item 3</option>
+    <select id="lista" class="form-control w-50 p-2 align-self-center mt-5" size="3">
+      <option class="p-1 rounded">Item 1</option>
+      <option class="p-1 rounded">Item 2</option>
+      <option class="p-1 rounded">Item 3</option>
     </select>
     <br>
     <button class="btn btn-primary p-2 w-50 align-self-center mb-5" onclick="createCampaign(lista.selectedIndex)">SMS</button>
   </div>
-
-
+  <br>
+  <div id="containerMsg" class="container-md w-75 m-auto d-flex justify-content-center flex-column">
+    <p id="msg" class="p-1 rounded align-self-center p-2 fw-bold" style="color: white; background-color: forestgreen; visibility: hidden;">Mensagem enviada</p>
+  </div>
 
   <script>
 
     function alerta(idx) {
       var lista = document.getElementById('lista');
-      alert(lista.options[idx].text);
+      //alert(lista.options[idx].text);
+      document.getElementById('msg').style.visibility = 'visible';
+
+      setTimeout(() => {
+        document.getElementById('msg').style.visibility = 'hidden';
+      }, 3000);
+
     }
 
     function createCampaign(idx) {
@@ -125,8 +128,17 @@
       }).then(function (response) {
         return response.json().then(function (data) {
           console.log(data);
+          document.getElementById('msg').style.visibility = 'visible';
+
+          setTimeout(() => {
+            document.getElementById('msg').style.visibility = 'hidden';
+          }, 3000);
+
         }).catch(function (error) {
           console.log(error);
+          document.getElementById('msg').style.visibility = 'visible';
+          document.getElementById('msg').style.backgroundColor = 'red';
+          document.getElementById('msg').innerText = 'Erro: ' + error;
         })
       });
 
