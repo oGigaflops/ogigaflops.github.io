@@ -36,16 +36,6 @@
 
     function createCampaign(idx) {
       if (idx < 0) {
-        document.getElementById('msg').innerText = 'Selecione um item da lista';
-        document.getElementById('msg').style.visibility = 'visible';
-
-      setTimeout(() => {
-        document.getElementById('msg').style.visibility = 'hidden'; 
-        document.getElementById('msg').style.backgroundColor = 'forestgreen';
-        document.getElementById('msg').innerText = 'Mensagem enviada';
-
-      }, 3000);
-
         return;
       }
       var lista = document.getElementById('lista');
@@ -136,8 +126,6 @@
       }).then(function (response) {
         return response.json().then(function (data) {
           console.log(data);
-          document.getElementById('msg').style.backgroundColor = 'forestgreen';
-          document.getElementById('msg').innerText = 'Mensagem enviada';
           document.getElementById('msg').style.visibility = 'visible';
 
           setTimeout(() => {
