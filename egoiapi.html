@@ -126,6 +126,8 @@
       }).then(function (response) {
         return response.json().then(function (data) {
           console.log(data);
+          document.getElementById('msg').style.backgroundColor = 'forestgreen';
+          document.getElementById('msg').innerText = 'Mensagem enviada';
           document.getElementById('msg').style.visibility = 'visible';
 
           setTimeout(() => {
@@ -139,10 +141,7 @@
           document.getElementById('msg').style.backgroundColor = 'red';
 
           setTimeout(() => {
-            document.getElementById('msg').style.visibility = 'hidden'; 
-            document.getElementById('msg').style.backgroundColor = 'forestgreen';
-            document.getElementById('msg').innerText = 'Mensagem enviada';
-
+            document.getElementById('msg').style.visibility = 'hidden';
           }, 3000);
         })
       });
