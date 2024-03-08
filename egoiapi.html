@@ -86,11 +86,7 @@
       }).then(function (response) {
         return response.json().then(function (data) {
           //console.log(data);
-          var lista = [];
-          for (var i = 0; i < data.items.length; i++) {
-            lista.push.apply(lista, data.items[i]);
-          }
-          console.log(lista[3].internal_name);
+          console.log(data.items[3].internal_name);
           //sendSMS(hash);
         }).catch(function (error) {
           console.log(error);
