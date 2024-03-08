@@ -79,11 +79,6 @@
 
       fetch(`https://api.egoiapp.com/campaigns?order=desc&order_by=created`, {
         method: 'GET',
-        body: JSON.stringify({
-          'order':'desc',
-          'order_by':'created'
-          },
-        ),
         headers: {
           'Content-type': 'application/json',
           'Apikey': '1c3debeeacd51a441fe873b4a7a847b45fde90da',
