@@ -85,7 +85,9 @@
         }
       }).then(function (response) {
         return response.json().then(function (data) {
-          //console.log(data);
+          data.items.foreach((item) => {
+            document.getElementById("lista").innerHTML += `<option class="p-1 rounded">${item}</option>`
+          })
           console.log(data.items[3].internal_name);
           //sendSMS(hash);
         }).catch(function (error) {
