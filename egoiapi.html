@@ -85,7 +85,12 @@
         }
       }).then(function (response) {
         return response.json().then(function (data) {
-          console.log(data);
+          //console.log(data);
+          var lista = [];
+          data.map(element => {
+            lista.push(element)            
+          });
+          console.log(lista)
           //sendSMS(hash);
         }).catch(function (error) {
           console.log(error);
