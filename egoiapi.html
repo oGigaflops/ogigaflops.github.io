@@ -75,18 +75,15 @@
       });
     };
 
-    function updateCampaign(hash, msg) {
+    function populateCampaigns() {
 
-      fetch(`https://api.egoiapp.com/campaigns/sms/${hash}`, {
-        method: 'PATCH',
+      fetch(`https://api.egoiapp.com/campaigns?order=desc&order_by=created`, {
+        method: 'GET',
         body: JSON.stringify({
-          'internal_name':'CT',
-          'content':{'message':`${msg}`},
-          'sender_id':'7',
-          'options':{'encoding':'gsm_extended',
-                    'max_messages':'7'
+          'order':'desc',
+          'order_by':'created'
           },
-        }),
+        ),
         headers: {
           'Content-type': 'application/json',
           'Apikey': '1c3debeeacd51a441fe873b4a7a847b45fde90da',
@@ -147,6 +144,8 @@
       });
 
     };
+
+    document.addEventListener("DOMContentLoaded", () => { populateCampaigns(); })
 
   </script>
 </body>
