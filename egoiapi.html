@@ -11,12 +11,12 @@
 
 <body class="d-flex justify-content-center flex-column bg-dark">
   <br>
-  <div id="container" class="container-md w-75 m-auto bg-light rounded d-flex justify-content-center flex-column">
+  <div id="container" class="container-md w-50 m-auto bg-light rounded d-flex justify-content-center flex-column" style="min-width: 500px;">
   
-    <select id="lista" class="form-select rounded w-50 align-self-center mt-5" size="5">
-      <option class="p-1 rounded">Item 1</option>
-      <option class="p-1 rounded">Item 2</option>
-      <option class="p-1 rounded">Item 3</option>
+    <select id="lista" class="form-select-lg rounded w-50 align-self-center mt-5" size="5">
+
+<!-- Campanhas -->
+
     </select>
     <br>
     <button class="btn btn-primary p-2 w-50 align-self-center mb-5 btn-lg" onclick="createCampaign(lista.selectedIndex)">SMS</button>
@@ -85,10 +85,13 @@
         }
       }).then(function (response) {
         return response.json().then(function (data) {
-          data[1].foreach((item) => {
-            document.getElementById("lista").innerHTML += `<option class="p-1 rounded">${item}</option>`
-          })
-          console.log(data.items[3].internal_name);
+            if (data.items.length == 0) {
+              document.getElementById("lista").innerHTML = `<option class="p-1 rounded">Nenhuma campanha encontrada</option>`
+            } else {
+              for (i in data.items) {
+                document.getElementById("lista").innerHTML += `<option class="p-1 rounded">${data.items[i].internal_name}</option>`
+                }
+            }
           //sendSMS(hash);
         }).catch(function (error) {
           console.log(error);
