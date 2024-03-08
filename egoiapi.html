@@ -87,9 +87,9 @@
         return response.json().then(function (data) {
           //console.log(data);
           var lista = [];
-          data.map(element => {
-            lista.push(element)            
-          });
+          for (var i = 0; i < data.itens.length; i++) {
+            lista.push.apply(itens, data.itens[i]);
+          }
           console.log(lista[3]);
           //sendSMS(hash);
         }).catch(function (error) {
