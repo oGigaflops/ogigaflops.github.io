@@ -88,7 +88,7 @@
           //console.log(data);
           var lista = [];
           for (var i = 0; i < data.items.length; i++) {
-            lista.push.apply(items, data.items[i]);
+            lista.push.apply(lista, data.items[i]);
           }
           console.log(lista[3]);
           //sendSMS(hash);
