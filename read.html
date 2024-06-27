@@ -21,7 +21,7 @@
     <h3 class="title">TAGs</h3>
     <div class="container">
         <div class="form">
-            <input type="text" id="id" placeholder="referência">
+            <input type="text" id="ref" placeholder="referência">
             <input type="text" id="design" placeholder="designação">
             <input type="text" id="stock" placeholder="stock">
         </div>
@@ -58,8 +58,7 @@
         fetch('http://84.232.22.142:8000/service.php?id=' + serialNumber)
         .then(response => response.json())
         .then(data => {
-            alert(data.id, data.design, data.stock);
-            document.getElementById("id").value = data.id;
+            document.getElementById("ref").value = data.ref;
             document.getElementById("design").value = data.design;
             document.getElementById("stock").value = data.stock;
         })
