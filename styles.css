@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    width: 100vw;
+    margin: auto;
+    font-size: 12px;
+    text-align: center;
+
+}
+
+#MSG {
+    font-size: 4rem;
+}
+
+#SERIAL {
+    font-size: 3rem;
+}
+
+button#button {
+    width: 50vw;
+    height: 6rem;
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

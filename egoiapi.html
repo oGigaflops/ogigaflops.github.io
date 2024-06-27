@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <title>E-goi API Teste</title>
+</head>
+
+<body class="d-flex justify-content-center flex-column bg-dark">
+  <br>
+  <div id="container" class="container-md w-50 m-auto bg-light rounded d-flex justify-content-center flex-column" style="min-width: 500px;">
+  
+    <select id="lista" class="form-select-lg rounded w-50 align-self-center mt-5" size="5">
+
+<!-- Campanhas -->
+
+    </select>
+    <br>
+    <button class="btn btn-primary p-2 w-50 align-self-center mb-5 btn-lg" onclick="//createCampaign(lista.selectedIndex)">SMS</button>
+  </div>
+  <br>
+  <div id="containerMsg" class="container-md w-75 m-auto d-flex justify-content-center flex-column">
+    <p id="msg" class="p-1 rounded align-self-center p-2 fw-bold" style="color: white; background-color: forestgreen; visibility: hidden;">Mensagem enviada</p>
+  </div>
+
+  <script>
+
+    function alerta(idx) {
+      var lista = document.getElementById('lista');
+      alert(lista.options[idx].text);
+
+    }
+
+    function createCampaign(idx) {
+      if (idx < 0) {
+        return;
+      }
+      var lista = document.getElementById('lista');
+      var msg = lista.options[idx].text;
+      console.log(msg);
+
+      fetch('https://api.egoiapp.com/campaigns/sms', {
+        method: 'POST',
+        body: JSON.stringify({
+          'list_id': '21',
+          'internal_name': 'CT',
+          'content': {
+            'type': 'text',
+            'message': `${msg}`
+          },
+          'sender_id': '7',
+          'options': {
+            'encoding': 'gsm_extended',
+            'max_messages': '7'
+          },
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Apikey': '1c3debeeacd51a441fe873b4a7a847b45fde90da',
+          'credentials': 'include',
+          'X-Frame-Options': 'SAMEORIGIN',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+        }
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          console.log(data);
+          sendSMS(data.campaign_hash);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      });
+    };
+
+    function populateCampaigns() {
+
+      fetch(`https://api.egoiapp.com/campaigns?order=desc&order_by=created`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Apikey': '1c3debeeacd51a441fe873b4a7a847b45fde90da',
+        }
+      }).then(function (response) {
+        return response.json().then(function (data) {
+            if (data.items.length == 0) {
+              document.getElementById("lista").innerHTML = `<option class="p-1 rounded">Nenhuma campanha encontrada</option>`
+            } else {
+              for (i in data.items) {
+                document.getElementById("lista").innerHTML += `<option class="p-1 rounded">${data.items[i].internal_name}</option>`
+                }
+            }
+          //sendSMS(hash);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      });
+    };
+
+    function sendSMS(hash) {
+
+
+      fetch(`https://api.egoiapp.com/campaigns/sms/${hash}/actions/send`, {
+        method: 'POST',
+        body: JSON.stringify({
+          'list_id': '21',
+          'destination_field': 'cellphone',
+          'segments': { 'type': 'none' }
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Apikey': '1c3debeeacd51a441fe873b4a7a847b45fde90da',
+          'credentials': 'include',
+          'X-Frame-Options': 'SAMEORIGIN',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*'
+        }
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          console.log(data);
+          document.getElementById('msg').style.backgroundColor = 'forestgreen';
+          document.getElementById('msg').innerText = 'Mensagem enviada';
+          document.getElementById('msg').style.visibility = 'visible';
+
+          setTimeout(() => {
+            document.getElementById('msg').style.visibility = 'hidden';
+          }, 3000);
+
+        }).catch(function (error) {
+          console.log(error);
+          document.getElementById('msg').innerText = 'Erro: ' + error;
+          document.getElementById('msg').style.visibility = 'visible';
+          document.getElementById('msg').style.backgroundColor = 'red';
+
+          setTimeout(() => {
+            document.getElementById('msg').style.visibility = 'hidden';
+          }, 3000);
+        })
+      });
+
+    };
+
+    window.onload = () => { populateCampaigns(); }
+
+  </script>
+</body>
+
+</html>
