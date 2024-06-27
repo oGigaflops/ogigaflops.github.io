@@ -1,0 +1,81 @@
+:root {
+    --main-color: rgb(70, 49, 163);
+    --main-bg-color: rgb(44, 37, 77);
+    --border-radius: .3rem;
+}
+
+.title {
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: rgb(70,49,163);
+    background: linear-gradient(180deg, var(--main-bg-color) 0%, rgba(0,0,0,1) 100%);
+}
+
+button {
+    container-type: inline-size;
+    background-color: var(--main-color);
+    border: none;
+    color: white;
+    border-radius: var(--border-radius);
+    width: 40cqi;
+    height: 40cqi;
+    max-width: 200px;
+    max-height: 200px;
+    aspect-ratio: 1/1;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+button > span {
+    container-type: inline-size;
+    font-size: 14cqi;
+}
+
+input[type="text"] {
+    container-type: inline-size;
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #eee;
+    border-bottom: 3px solid var(--main-color);
+    border-radius: var(--border-radius);
+}
+
+.container {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: var(--border-radius);
+    gap: 1rem;
+    width: 80%;
+    height: 80%;
+    max-width: 1000px;
+    background-color: white;
+}
+
+.form {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+}
