@@ -30,7 +30,7 @@
             <input type="text" id="stock" placeholder="stock">
         </div>
         <button id="scanButton" disabled><span>LER</span></button>
-        <button onclick="get2()"><span>LER</span></button>
+        <button onclick="get2()"><span>LER2</span></button>
         
     </div>
 
@@ -102,7 +102,7 @@
             $("#stock").val(data.stock);
         },
         error: function(error) {
-            $("#ref").val("Error fetching data from server: " + error);
+            $("#ref").val("Error fetching data from server: " + JSON.stringify(error));
         }
     });
 
