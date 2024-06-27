@@ -36,7 +36,7 @@
         try {
         const ndef = new NDEFReader();
         await ndef.scan();
-        document.getElementById("MSG").innerHTML = "Rastreio iniciado";
+        document.getElementById("id").innerText = "Rastreio iniciado";
         
         ndef.addEventListener("readingerror", () => {
             document.getElementById("MSG").innerHTML = "Erro lendo tag";
@@ -45,9 +45,9 @@
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
 
             if (message.records.length == 0 || message.records[0].recordType == "empty") {
-                document.getElementById("id").innerHTML = "Tag vazia";   
+                document.getElementById("id").innerText = "Tag vazia";   
             } else
-            document.getElementById("id").innerHTML = ${serialNumber};
+            document.getElementById("id").innerText = serialNumber;
 /*             document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
             document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
             document.getElementById("CONTENT").innerHTML = `Conteúdo: ${record.data}`; */
