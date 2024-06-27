@@ -30,6 +30,7 @@
             <input type="text" id="stock" placeholder="stock">
         </div>
         <button id="scanButton" disabled><span>LER</span></button>
+        <button onclick="get2()"><span>LER</span></button>
         
     </div>
 
@@ -52,7 +53,7 @@
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
 
-            get(serialNumber);
+            get(serialNumber.toString());
 
     });
 
@@ -76,7 +77,7 @@
         $.ajax({
             url: 'http://84.232.22.142:8000/service.php',
             type: 'GET',
-            data: {id: serialNumber},
+            data: {id:serialNumber},
             success: function(data) {
                 $("#ref").val(data.ref);
                 $("#design").val(data.design);
@@ -86,6 +87,24 @@
                 $("#ref").val("Error fetching data from server: " + error);
             }
         });
+
+    }
+
+    function get2() {
+
+    $.ajax({
+        url: 'http://84.232.22.142:8000/service.php',
+        type: 'GET',
+        data: {id:'04:a8:4b:2a:0a:12:90'},
+        success: function(data) {
+            $("#ref").val(data.ref);
+            $("#design").val(data.design);
+            $("#stock").val(data.stock);
+        },
+        error: function(error) {
+            $("#ref").val("Error fetching data from server: " + error);
+        }
+    });
 
     }
 
