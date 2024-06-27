@@ -58,6 +58,7 @@
         fetch('http://84.232.22.142:8000/service.php?id=' + serialNumber)
         .then(response => response.json())
         .then(data => {
+            alert(data.id, data.design, data.stock);
             document.getElementById("id").value = data.id;
             document.getElementById("design").value = data.design;
             document.getElementById("stock").value = data.stock;
