@@ -39,7 +39,7 @@
         document.getElementById("id").value = "Rastreio iniciado";
         
         ndef.addEventListener("readingerror", () => {
-            document.getElementById("MSG").value = "Erro lendo tag";
+            document.getElementById("id").value = "Erro lendo tag";
         });
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
@@ -53,7 +53,7 @@
             document.getElementById("CONTENT").innerHTML = `Conteúdo: ${record.data}`; */
             });
         } catch (error) {
-        document.getElementById("MSG").innerHTML = "Erro: " + error;
+        document.getElementById("id").value = "Erro: " + error;
         }
     });
     
