@@ -45,7 +45,8 @@
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
 
             if (message.records.length == 0 || message.records[0].recordType == "empty") {
-                document.getElementById("id").value = "Tag vazia";   
+                document.getElementById("id").value = serialNumber;
+                document.getElementById("design").value = "Tag vazia";   
             } else
             document.getElementById("id").value = serialNumber;
 /*             document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
