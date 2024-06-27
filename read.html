@@ -25,7 +25,7 @@
             <input type="text" id="design" placeholder="designação">
             <input type="text" id="stock" placeholder="stock">
         </div>
-        <button id="scanButton"><span>LER</span></button>
+        <button id="scanButton" disabled><span>LER</span></button>
         
     </div>
 
@@ -58,20 +58,38 @@
 
     });
     
+    $(document).ready(function() {
+        if ('NDEFReader' in window) {
+            document.getElementById("scanButton").disabled = false;
+        } else {
+            document.getElementById("ref").value = "NFC not supported";
+            document.getElementById("scanButton").disabled = true;
+        }
+    });
+
     function get(serialNumber) {
-        fetch('http://84.232.22.142:8000/service.php?id=' + serialNumber)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("ref").value = data.ref;
-            document.getElementById("design").value = data.design;
-            document.getElementById("stock").value = data.stock;
-        })
-        .catch(error => {
-            document.getElementById("ref").value = "Error fetching data from server: " + error;
+
+        $.ajax({
+            url: 'http://84.232.22.142:8000/service.php',
+            type: 'GET',
+            data: {id: serialNumber},
+            success: function(data) {
+                $("#ref").val(data.ref);
+                $("#design").val(data.design);
+                $("#stock").val(data.stock);
+            },
+            error: function(error) {
+                $("#ref").val("Error fetching data from server: " + error);
+            }
         });
+
     }
 
     </script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web-nfc@0.1.0/dist/web-nfc.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+    </script>
 </body>
 </html>
