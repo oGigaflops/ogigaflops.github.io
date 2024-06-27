@@ -36,10 +36,14 @@
         try {
         const ndef = new NDEFReader();
         await ndef.scan();
-        document.getElementById("id").value = "Rastreio iniciado";
+        document.getElementById("ref").value = "Rastreio iniciado";
+        document.getElementById("design").value = "";
+        document.getElementById("stock").value = "";
         
         ndef.addEventListener("readingerror", () => {
-            document.getElementById("id").value = "Erro lendo tag";
+            document.getElementById("ref").value = "Erro lendo tag";
+            document.getElementById("design").value = "";
+            document.getElementById("stock").value = "";
         });
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
