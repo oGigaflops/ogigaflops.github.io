@@ -44,20 +44,29 @@
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
 
-            if (message.records.length == 0 || message.records[0].recordType == "empty") {
-                document.getElementById("id").value = serialNumber;
-                document.getElementById("design").value = "Tag vazia";   
-            } else
-            document.getElementById("id").value = serialNumber;
-/*             document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
-            document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
-            document.getElementById("CONTENT").innerHTML = `Conteúdo: ${record.data}`; */
-            });
+            get(serialNumber);
+
+    });
+
         } catch (error) {
-        document.getElementById("id").value = "Erro: " + error;
+            console.error("Error reading data from NFC: ", error);
         }
+
     });
     
+    function get(serialNumber) {
+        fetch('http://84.232.22.142:8000/service.php?id=' + serialNumber)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("id").value = data.id;
+            document.getElementById("design").value = data.design;
+            document.getElementById("stock").value = data.stock;
+        })
+        .catch(error => {
+            console.error("Error fetching data from server: ", error);
+        });
+    }
+
     </script>
 
 </body>
