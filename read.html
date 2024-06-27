@@ -36,18 +36,18 @@
         try {
         const ndef = new NDEFReader();
         await ndef.scan();
-        document.getElementById("id").innerText = "Rastreio iniciado";
+        document.getElementById("id").value = "Rastreio iniciado";
         
         ndef.addEventListener("readingerror", () => {
-            document.getElementById("MSG").innerHTML = "Erro lendo tag";
+            document.getElementById("MSG").value = "Erro lendo tag";
         });
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
 
             if (message.records.length == 0 || message.records[0].recordType == "empty") {
-                document.getElementById("id").innerText = "Tag vazia";   
+                document.getElementById("id").value = "Tag vazia";   
             } else
-            document.getElementById("id").innerText = serialNumber;
+            document.getElementById("id").value = serialNumber;
 /*             document.getElementById("SERIAL").innerHTML = `Número de série: ${serialNumber}`;
             document.getElementById("RECORDS").innerHTML = `Registos: (${message.records.length})`;
             document.getElementById("CONTENT").innerHTML = `Conteúdo: ${record.data}`; */
