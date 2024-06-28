@@ -11,7 +11,7 @@
         window.addEventListener('error', function (error) {
             if (ChromeSamples && ChromeSamples.setStatus) {
                 console.error(error);
-                ChromeSamples.setStatus(error.message + ' (Your browser may not support this feature.)');
+                ChromeSamples.setStatus(error.message + ' (Este navegador pode não suportar esta funcionalidade.)');
                 error.preventDefault();
             }
         });
@@ -30,7 +30,6 @@
             <input type="text" id="stock" placeholder="stock">
         </div>
         <button id="scanButton" disabled><span>LER</span></button>
-        <button onclick="get2()"><span>LER2</span></button>
         
     </div>
 
@@ -46,7 +45,7 @@
         document.getElementById("stock").value = "";
         
         ndef.addEventListener("readingerror", () => {
-            document.getElementById("ref").value = "Erro lendo tag";
+            document.getElementById("ref").value = "Erro ao ler tag";
             document.getElementById("design").value = "";
             document.getElementById("stock").value = "";
         });
@@ -58,7 +57,7 @@
     });
 
         } catch (error) {
-            document.getElementById("ref").value = "Error reading data from NFC: " + error;
+            document.getElementById("ref").value = "Erro ao ler tag: " + error;
         }
 
     });
@@ -84,27 +83,9 @@
                 $("#stock").val(data.stock);
             },
             error: function(error) {
-                $("#ref").val("Error fetching data from server: " + error);
+                $("#ref").val("Erro ao transferir dados do servidor: " + error);
             }
         });
-
-    }
-
-    function get2() {
-
-    $.ajax({
-        url: 'http://84.232.22.142:8000/service.php',
-        type: 'GET',
-        data: {id:'04:a8:4b:2a:0a:12:90'},
-        success: function(data) {
-            $("#ref").val(data.ref);
-            $("#design").val(data.design);
-            $("#stock").val(data.stock);
-        },
-        error: function(error) {
-            $("#ref").val("Error fetching data from server: " + JSON.stringify(error));
-        }
-    });
 
     }
 
